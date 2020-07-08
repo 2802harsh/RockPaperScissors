@@ -13,7 +13,7 @@ $(".game-obj").on("click",function(){
   else if(result===1){message="YOU WIN"}
   else{message="YOU LOSE"}
 
-  print(message);
+  print(message, result);
 
   $(".score").text(points);
 });
@@ -35,7 +35,7 @@ function checkWinner(){
   }
   if(user==="rock")
   {
-    if(house==="paper")
+    if(house==="paper" || house==="spock")
     {
       result=-1;
     }
@@ -45,7 +45,7 @@ function checkWinner(){
   }
   if(user==="scissors")
   {
-    if(house==="rock")
+    if(house==="rock" || house==="spock")
     {
       result=-1;
     }
@@ -55,7 +55,27 @@ function checkWinner(){
   }
   if(user==="paper")
   {
-    if(house==="scissors")
+    if(house==="scissors" || house==="lizard")
+    {
+      result=-1;
+    }
+    else{
+      result=1;
+    }
+  }
+  if(user==="spock")
+  {
+    if(house==="paper" || house==="lizard")
+    {
+      result=-1;
+    }
+    else{
+      result=1;
+    }
+  }
+  if(user==="lizard")
+  {
+    if(house==="scissors" || house==="rock")
     {
       result=-1;
     }
@@ -69,7 +89,7 @@ function checkWinner(){
   return result;
 }
 
-function print(msg){
+function print(msg, result){
   $("#play-game").addClass("hide");
   $("#result").removeClass("hide");
 
@@ -79,25 +99,42 @@ function print(msg){
   let houseImg = "images/icon-"+house+".svg";
 
   $(".you-chose img").attr("src",userImg);
-  $(".user-choice").addClass("res-"+user);
+  $(".user-choice").addClass(user);
 
   $(".i-chose img").attr("src",houseImg);
-  $(".house-choice").addClass("res-"+house);
+  $(".house-choice").addClass(house);
+
+  if(result===1){
+    $(".user-wins").addClass("win-effect-left");
+    $(".play-again").addClass(user+"-col");
+  }
+  else if(result===-1){
+    $(".house-wins").addClass("win-effect-right");
+    $(".play-again").addClass(house+"-col");
+  }
+
 }
 
 $(".play-again").on("click", function(){
   $("#play-game").removeClass("hide");
   $("#result").addClass("hide");
 
-  $(".user-choice").removeClass("res-"+user);
-  $(".house-choice").removeClass("res-"+house);
+  $(".user-choice").removeClass(user);
+  $(".house-choice").removeClass(house);
+
+  $(".user-wins").removeClass("win-effect-left");
+  $(".house-wins").removeClass("win-effect-right");
+
+  $(".play-again").removeClass(user+"-col");
+  $(".play-again").removeClass(house+"-col")
+
 });
 
-$(".rules").on("click", function(){
-  $(".rules-img").removeClass("hide");
+$(".rules-button").on("click", function(){
+  $(".rules-disp").removeClass("hide");
   $(".toggle-rules").addClass("blackout");
 });
 $(".closebt").on("click", function(){
-  $(".rules-img").addClass("hide");
+  $(".rules-disp").addClass("hide");
   $(".toggle-rules").removeClass("blackout");
 });
