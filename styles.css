@@ -18,10 +18,10 @@ body{
 
 .title img{
   display: inline-block;
-  width:150px;
-  width: 150px;
+  width:200px;
+
   /* line-height: 0.8; */
-  margin: 1% auto;
+  margin: 5% auto;
 }
 
 .score-card{
